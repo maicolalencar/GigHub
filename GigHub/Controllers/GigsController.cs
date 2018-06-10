@@ -28,18 +28,23 @@ namespace GigHub.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel gigViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                gigViewModel.Genres = _context.Genres;
+                return View(gigViewModel);
+            }
             var gig = new Gig()
             {
                 ApplicationUserId = User.Identity.GetUserId(),
                 Venue = gigViewModel.Venue,
-                DateTime = gigViewModel.DateTime,
+                DateTime = gigViewModel.GetDateTime(),
                 GenreId = gigViewModel.Genre
             };
 
             _context.Gigs.Add(gig);//TODO:memorizar
             _context.SaveChanges();
 
-            return RedirectToAction("Home");
+            return RedirectToAction("Create");
 
         }
     }
