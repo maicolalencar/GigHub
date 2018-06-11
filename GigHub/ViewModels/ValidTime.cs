@@ -12,7 +12,7 @@ namespace GigHub.ViewModels
         {
             DateTime dateOut;// = new DateTime();
             var isValid = DateTime.TryParseExact(value.ToString(), Format, CultureInfo.CurrentCulture, DateTimeStyles.None, out dateOut);
-            return (isValid && dateOut > DateTime.Now);
+            return (isValid);
         }
     }
 }
