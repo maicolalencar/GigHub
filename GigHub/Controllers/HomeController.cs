@@ -17,7 +17,11 @@ namespace GigHub.Controllers
         public ActionResult Index()
         {
 
-            var listGigs = _context.Gigs.Include(g => g.Artist).Where(g => g.DateTime > DateTime.Now).OrderBy(g => g.DateTime);
+            var listGigs = _context.Gigs
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                .Where(g => g.DateTime > DateTime.Now)
+                .OrderBy(g => g.DateTime);
             return View(listGigs);
         }
 
