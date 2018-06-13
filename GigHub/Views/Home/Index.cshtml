@@ -3,28 +3,52 @@
 @{
     ViewBag.Title = "Home Page";
 }
-    @foreach (var itemGig in Model)
-    {
-        <div class="row linha">
-            <div class="gig-date col-md-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@itemGig.DateTime.ToString("MMM")</div>
-                    <div class="panel-body">
-                        @itemGig.DateTime.Day
+@foreach (var itemGig in Model)
+{
+    <div class="row linha">
+        <div class="gig-date col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">@itemGig.DateTime.ToString("MMM")</div>
+                <div class="panel-body">
+                    @itemGig.DateTime.Day
 
-                    </div>
-                </div>
-            </div>
-            <div class="gig-details col-md-10">
-                <div>
-                    <span class="artist">
-                        @itemGig.Artist.Name
-                    </span>
-                    <br />
-                    <span class="genre">
-                        @itemGig.Genre.Name
-                    </span>
                 </div>
             </div>
         </div>
-    }
+        <div class="gig-details col-md-10">
+            <div>
+                <span class="artist">
+                    @itemGig.Artist.Name
+                </span>
+                <br />
+                <span class="genre">
+                    @itemGig.Genre.Name
+                </span>
+                <button data-gigid="@itemGig.Id" class="btn btn-default btn-sm js-going">Going?</button>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".js-going").on("click", function () {
+                var botaoClicado = $(this);
+                var attendence = { GigId: botaoClicado.attr("data-gigid") };
+                $.ajax({
+                    url: "/api/attendences",
+                    type: "post",
+                    data: attendence,
+                    dataType: "json",
+                    success: function (data) {
+                        botaoClicado.removeClass("btn-default").addClass("btn-success").text("Going")                        
+                    },
+                    error: function (response) {
+                        alert(response.error);
+                    }
+                });
+            });
+        });
+    </script>
+}
