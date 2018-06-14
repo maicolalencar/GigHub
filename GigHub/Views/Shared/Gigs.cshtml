@@ -1,35 +1,46 @@
-﻿@model IEnumerable<GigHub.Models.Gig>
+﻿@model GigHub.ViewModels.GigsViewModel
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Model.Heading;
 }
-@foreach (var itemGig in Model)
-{
-    <div class="row linha">
-        <div class="gig-date col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">@itemGig.DateTime.ToString("MMM")</div>
-                <div class="panel-body">
-                    @itemGig.DateTime.Day
 
+<h1>@Model.Heading</h1>
+<div class="voffset">
+
+    @foreach (var itemGig in Model.upcomingGigs)
+    {
+        <div class="row linha">
+            <div class="gig-date col-md-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@itemGig.DateTime.ToString("MMM")</div>
+                    <div class="panel-body">
+                        @itemGig.DateTime.Day
+
+                    </div>
+                </div>
+            </div>
+            <div class="gig-details col-md-10">
+                <div>
+                    <span class="artist">
+                        @itemGig.Artist.Name
+                    </span>
+                    @if (Model.showActions)
+                    {
+                        <button data-followed-id="@itemGig.Artist.Id" class="btn-link js-follow">Follow</button>
+                    }
+                    <br />
+                    <span class="genre">
+                        @itemGig.Genre.Name
+                    </span>
+                    @if (Model.showActions)
+                    {
+                        <button data-gigid="@itemGig.Id" class="btn btn-default btn-sm js-going">Going?</button>
+                    }
                 </div>
             </div>
         </div>
-        <div class="gig-details col-md-10">
-            <div>
-                <span class="artist">
-                    @itemGig.Artist.Name
-                </span>
-                <button data-followed-id="@itemGig.Artist.Id" class="btn-link js-follow">Follow</button>
-                <br />
-                <span class="genre">
-                    @itemGig.Genre.Name
-                </span>
-                <button data-gigid="@itemGig.Id" class="btn btn-default btn-sm js-going">Going?</button>
-            </div>
-        </div>
-    </div>
-}
+    }
+</div>
 @section scripts
 {
     <script>
@@ -43,7 +54,7 @@
                     data: attendence,
                     dataType: "json",
                     success: function (data) {
-                        botaoClicado.removeClass("btn-default").addClass("btn-success").text("Going")                        
+                        botaoClicado.removeClass("btn-default").addClass("btn-success").text("Going")
                     },
                     error: function (response) {
                         //alert(response.error);
