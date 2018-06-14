@@ -201,6 +201,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendencesController.cs" />
+    <Compile Include="Controllers\FollowingController.cs" />
+    <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -227,9 +229,13 @@
     <Compile Include="Migrations\201806131442574_AddAttendancee.Designer.cs">
       <DependentUpon>201806131442574_AddAttendancee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806132341591_addFollowing.cs" />
+    <Compile Include="Migrations\201806132341591_addFollowing.Designer.cs">
+      <DependentUpon>201806132341591_addFollowing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendance.cs" />
-    <Compile Include="Models\AttendenceDto.cs" />
+    <Compile Include="Dtos\AttendenceDto.cs" />
     <Compile Include="Models\Following.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -341,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806131442574_AddAttendancee.resx">
       <DependentUpon>201806131442574_AddAttendancee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806132341591_addFollowing.resx">
+      <DependentUpon>201806132341591_addFollowing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

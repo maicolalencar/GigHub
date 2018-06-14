@@ -20,6 +20,7 @@
                 <span class="artist">
                     @itemGig.Artist.Name
                 </span>
+                <button data-followed-id="@itemGig.Artist.Id" class="btn-link js-follow">Follow</button>
                 <br />
                 <span class="genre">
                     @itemGig.Genre.Name
@@ -45,7 +46,27 @@
                         botaoClicado.removeClass("btn-default").addClass("btn-success").text("Going")                        
                     },
                     error: function (response) {
-                        alert(response.error);
+                        //alert(response.error);
+                    }
+                });
+            });
+
+            $(".js-follow").on("click", function () {
+                var botaoClicado = $(this);
+                var following = { FolloweeId: botaoClicado.attr("data-followed-id") };
+                $.ajax({
+                    url: "/api/following",
+                    type: "post",
+                    data: following,
+                    dataType: "json",
+                    success: function (data) {
+                        var selectorFollowSameArtist = "a[data-followed-id=" + botaoClicado.attr("data-followed-id") + "]";
+                        $(selectorFollowSameArtist).each(function () {
+                            $(this).text("Following");
+                        });
+                    },
+                    error: function (response) {
+                        //alert(response.error);
                     }
                 });
             });
