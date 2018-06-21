@@ -25,21 +25,42 @@ namespace GigHub.Controllers
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
                 .Where(g => g.Artist.Id == userId && g.DateTime > DateTime.Now)
-
+                .OrderBy(g => g.DateTime)
                 .ToList();
 
             return View(gigs);
         }
 
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var gig = _context.Gigs.FirstOrDefault(g => g.Id == id && g.Artist.Id == userId);
+
+            var gigsForm = new GigFormViewModel()
+            {
+                Id = gig.Id,
+                Heading = "Edit a Gig",
+                Venue = gig.Venue,
+                Date = gig.DateTime.ToString("dd/MM/yyyy"),
+                Time = gig.DateTime.ToString("HH:mm"),
+                Genres = _context.Genres,
+                Genre = gig.GenreId,
+
+
+            };
+            return View("GigForm", gigsForm);
+        }
 
         [Authorize]
         public ActionResult Create()
         {
             var gigsForm = new GigFormViewModel()
             {
+                Heading = "Add a Gig",
                 Genres = _context.Genres
             };
-            return View(gigsForm);
+            return View("GigForm", gigsForm);
         }
 
         [Authorize]
@@ -81,6 +102,32 @@ namespace GigHub.Controllers
             };
 
             _context.Gigs.Add(gig);//TODO:memorizar
+            _context.SaveChanges();
+
+            return RedirectToAction("Mine");
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel gigViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                gigViewModel.Genres = _context.Genres;
+                return View(gigViewModel);
+            }
+            var userId = User.Identity.GetUserId();
+
+            var gig = _context.Gigs.Single(g => g.Artist.Id == userId && g.Id == gigViewModel.Id);
+
+            gig.ApplicationUserId = User.Identity.GetUserId();
+            gig.Venue = gigViewModel.Venue;
+            gig.DateTime = gigViewModel.GetDateTime();
+            gig.GenreId = gigViewModel.Genre;
+
+            //_context.Gigs. (gig);//TODO:memorizar
             _context.SaveChanges();
 
             return RedirectToAction("Mine");

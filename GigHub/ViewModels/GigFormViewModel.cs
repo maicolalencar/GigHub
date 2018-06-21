@@ -1,12 +1,34 @@
-﻿using GigHub.Models;
+﻿using GigHub.Controllers;
+using GigHub.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace GigHub.ViewModels
 {
     public class GigFormViewModel
     {
+
+        public int Id { get; set; }
+
+        public string Action
+        {
+            get
+            {
+
+                Expression<Func<GigsController, ActionResult>> update =
+                    (c => c.Update(null));
+
+                Expression<Func<GigsController, ActionResult>> create =
+                    (c => c.Create(null));
+
+                var action = (Id != 0) ? update : create;
+                return (update.Body as MethodCallExpression).Method.Name;
+            }
+        }
+
         [Required]
         public string Venue { get; set; }
 
@@ -24,5 +46,6 @@ namespace GigHub.ViewModels
         public byte Genre { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
+        public string Heading { get; internal set; }
     }
 }

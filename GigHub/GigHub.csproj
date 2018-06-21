@@ -202,6 +202,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendencesController.cs" />
     <Compile Include="Controllers\FollowingController.cs" />
+    <Compile Include="Migrations\201806210004361_AddMPBSamba.cs" />
+    <Compile Include="Migrations\201806210004361_AddMPBSamba.Designer.cs">
+      <DependentUpon>201806210004361_AddMPBSamba.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Controllers\GigsController.cs" />
@@ -315,7 +319,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Gigs\Create.cshtml" />
+    <Content Include="Views\Gigs\GigForm.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -352,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806132341591_addFollowing.resx">
       <DependentUpon>201806132341591_addFollowing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806210004361_AddMPBSamba.resx">
+      <DependentUpon>201806210004361_AddMPBSamba.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
