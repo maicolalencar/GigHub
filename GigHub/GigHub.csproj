@@ -200,11 +200,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AttendencesController.cs" />
-    <Compile Include="Controllers\FollowingController.cs" />
+    <Compile Include="Controllers\API\GigController.cs" />
+    <Compile Include="Controllers\API\AttendencesController.cs" />
+    <Compile Include="Controllers\API\FollowingController.cs" />
     <Compile Include="Migrations\201806210004361_AddMPBSamba.cs" />
     <Compile Include="Migrations\201806210004361_AddMPBSamba.Designer.cs">
       <DependentUpon>201806210004361_AddMPBSamba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806272337041_AddIsCanceledGig.cs" />
+    <Compile Include="Migrations\201806272337041_AddIsCanceledGig.Designer.cs">
+      <DependentUpon>201806272337041_AddIsCanceledGig.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
@@ -269,6 +274,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -359,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806210004361_AddMPBSamba.resx">
       <DependentUpon>201806210004361_AddMPBSamba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806272337041_AddIsCanceledGig.resx">
+      <DependentUpon>201806272337041_AddIsCanceledGig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

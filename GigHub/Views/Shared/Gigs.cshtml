@@ -24,6 +24,11 @@
                     <span class="artist">
                         @itemGig.Artist.Name
                     </span>
+                    @if (itemGig.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
+
                     @if (Model.showActions)
                     {
                         <button data-followed-id="@itemGig.Artist.Id" class="btn-link js-follow">Follow</button>
@@ -32,7 +37,7 @@
                     <span class="genre">
                         @itemGig.Genre.Name
                     </span>
-                    @if (Model.showActions)
+                    @if (Model.showActions && !itemGig.IsCanceled)
                     {
                         <button data-gigid="@itemGig.Id" class="btn btn-default btn-sm js-going">Going?</button>
                     }

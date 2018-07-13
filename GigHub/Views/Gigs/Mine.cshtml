@@ -29,9 +29,56 @@
                     </span>
                     <div class="actions">
                         <a href="@Url.Action("Edit","Gigs", new { id = itemGig.Id })">Edit</a>
+                        |
+                        <a href="#" class="js-cancel-gig" data-gig-id="@itemGig.Id">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".js-cancel-gig").on('click', function (e) {
+                bootbox.dialog({
+                    title: 'Confirmação',
+                    message: "Deseja mesmo cancelar o show?",
+                    buttons: {
+                        no: {
+                            label: "No",
+                            className: 'btn-default',
+                            callback: function () {
+                                return;
+                            }
+                        },
+                        yes: {
+                            label: "Yes",
+                            className: 'btn-danger',
+                            callback: function () {
+                                var link = $(e.target);
+                                $.ajax({
+                                    url: "/api/gig/" + link.attr('data-gig-id'),
+                                    method: "delete",
+                                    success: function () {
+                                        link.parents(".linha").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    },
+                                    error: function () {
+                                        bootbox.alert("Ocorreu um erro para cancelar o show!")
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                bootbox.confirm("", function() {
+                    
+                });
+            });
+        });
+    </script>
+}
